@@ -1,7 +1,7 @@
 cc = gcc
 
 build:
-	$(CC) -S hello.c
+	$(CC) -fno-asynchronous-unwind-tables -S hello.c
 	$(CC) -o hello hello.c -g
 
 assemble:
