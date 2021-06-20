@@ -21,6 +21,7 @@ int many_sum(int a, int b, int c, int d, int e, int f, int g, int h, int i, int 
 }
 
 int main() {
-    printf("%d\n", many_sum(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16));
+    //printf("%d\n", many_sum(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16));
+    printf("%d", sum2(1,2));
     return 0;
 }

@@ -101,7 +101,7 @@ many_sum:
 	.size	many_sum, .-many_sum
 	.section	.rodata
 .LC0:
-	.string	"%d\n"
+	.string	"%d"
 	.text
 	.globl	main
 	.type	main, @function
@@ -109,30 +109,15 @@ main:
 	endbr64
 	pushq	%rbp
 	movq	%rsp, %rbp
-	pushq	$16
-	pushq	$15
-	pushq	$14
-	pushq	$13
-	pushq	$12
-	pushq	$11
-	pushq	$10
-	pushq	$9
-	pushq	$8
-	pushq	$7
-	movl	$6, %r9d
-	movl	$5, %r8d
-	movl	$4, %ecx
-	movl	$3, %edx
 	movl	$2, %esi
 	movl	$1, %edi
-	call	many_sum
-	addq	$80, %rsp
+	call	sum2
 	movl	%eax, %esi
 	leaq	.LC0(%rip), %rdi
 	movl	$0, %eax
 	call	printf@PLT
 	movl	$0, %eax
-	leave
+	popq	%rbp
 	ret
 	.size	main, .-main
 	.ident	"GCC: (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0"

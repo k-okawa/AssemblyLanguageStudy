@@ -14,39 +14,51 @@ sum:
 	popq	%rbp
 	ret
 	.size	sum, .-sum
+	.globl	sum2
+	.type	sum2, @function
+sum2:
+	endbr64
+	pushq	%rbp
+	movq	%rsp, %rbp
+	subq	$16, %rsp
+	movl	%edi, -4(%rbp)
+	movl	%esi, -8(%rbp)
+	movl	%edx, -12(%rbp)
+	movl	-8(%rbp), %edx
+	movl	-4(%rbp), %eax
+	movl	%edx, %esi
+	movl	%eax, %edi
+	call	sum
+	leave
+	ret
+	.size	sum2, .-sum2
 	.globl	many_sum
 	.type	many_sum, @function
 many_sum:
 	endbr64
 	pushq	%rbp
 	movq	%rsp, %rbp
-	pushq	%rbx
-	subq	$24, %rsp
-	movl	%edi, -12(%rbp)
-	movl	%esi, -16(%rbp)
-	movl	%edx, -20(%rbp)
-	movl	%ecx, -24(%rbp)
-	movl	%r8d, -28(%rbp)
-	movl	%r9d, -32(%rbp)
-	movl	-12(%rbp), %edx
+	movl	%edi, -4(%rbp)
+	movl	%esi, -8(%rbp)
+	movl	%edx, -12(%rbp)
+	movl	%ecx, -16(%rbp)
+	movl	%r8d, -20(%rbp)
+	movl	%r9d, -24(%rbp)
+	movl	-4(%rbp), %edx
+	movl	-8(%rbp), %eax
+	addl	%eax, %edx
+	movl	-12(%rbp), %eax
+	addl	%eax, %edx
 	movl	-16(%rbp), %eax
 	addl	%eax, %edx
 	movl	-20(%rbp), %eax
 	addl	%eax, %edx
 	movl	-24(%rbp), %eax
-	leal	(%rdx,%rax), %ebx
-	movl	-32(%rbp), %edx
-	movl	-28(%rbp), %eax
-	movl	%edx, %esi
-	movl	%eax, %edi
-	call	sum
-	leal	(%rbx,%rax), %edx
+	addl	%eax, %edx
 	movl	16(%rbp), %eax
 	addl	%eax, %edx
 	movl	24(%rbp), %eax
 	addl	%edx, %eax
-	addq	$24, %rsp
-	popq	%rbx
 	popq	%rbp
 	ret
 	.size	many_sum, .-many_sum
